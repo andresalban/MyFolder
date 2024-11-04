@@ -59,18 +59,20 @@ const Header = () => {
           alignItems="center"
         >
           <nav>
-            {socials.map((social, index) => {
-              return (
-                  <a key={index} href={social.url} style={{margin: '10px'}}>
-                    <FontAwesomeIcon icon={social.icon} size="2x"/>
-                  </a>
-              )
-            })}
+            <HStack>
+              {socials.map((social) =>
+                    <a key={social.url} href={social.url} >
+                      <FontAwesomeIcon icon={social.icon} size="2x"/>
+                    </a>
+
+              )}
+            </HStack>
+
           </nav>
           <nav>
             <HStack spacing={8}>
-              <a href="#projects-section" onClick={handleClick}>Projects</a>
-              <a href="#contactme-section" onClick={handleClick}>Contact Me</a>
+              <a href="#projects-section" onClick={handleClick("projects")}>Projects</a>
+              <a href="#contactme-section" onClick={handleClick("contactme")}>Contact Me</a>
             </HStack>
           </nav>
         </HStack>

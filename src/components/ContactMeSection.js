@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { useFormik } from "formik";
+import React from "react";
+import {useFormik} from "formik";
 import {
   Box,
   Button,
@@ -22,9 +22,23 @@ const LandingSection = () => {
   const { onOpen } = useAlertContext();
 
   const formik = useFormik({
-    initialValues: {},
-    onSubmit: (values) => {},
-    validationSchema: Yup.object({}),
+    initialValues: {
+      firstName: '',
+      email: '',
+      type: '',
+      comment: ''
+    },
+    onSubmit: (values) => {
+      console.log(values)
+      submit("/", values)
+
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().min(1).max(20).required(),
+      email: Yup.string().email().required(),
+      type: Yup.string().oneOf(["hireMe", "openSource", "other"]).required(),
+      comment: Yup.string().min(1).max(300),
+    }),
   });
 
   return (
@@ -39,15 +53,16 @@ const LandingSection = () => {
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
               <FormControl isInvalid={false}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   id="firstName"
                   name="firstName"
+                  onChange={formik.handleChange}
                 />
-                <FormErrorMessage></FormErrorMessage>
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={false}>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
@@ -55,16 +70,19 @@ const LandingSection = () => {
                   id="email"
                   name="email"
                   type="email"
+                  onChange={formik.handleChange}
                 />
-                <FormErrorMessage></FormErrorMessage>
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
               <FormControl>
                 <FormLabel htmlFor="type">Type of enquiry</FormLabel>
-                <Select id="type" name="type">
+                <Select
+                    id="type"
+                    name="type"
+                    onChange={formik.handleChange}
+                >
                   <option value="hireMe">Freelance project proposal</option>
-                  <option value="openSource">
-                    Open source consultancy session
-                  </option>
+                  <option value="openSource">Open source consultancy session</option>
                   <option value="other">Other</option>
                 </Select>
               </FormControl>
@@ -74,8 +92,9 @@ const LandingSection = () => {
                   id="comment"
                   name="comment"
                   height={250}
+                  onChange={formik.handleChange}
                 />
-                <FormErrorMessage></FormErrorMessage>
+                <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
               <Button type="submit" colorScheme="purple" width="full">
                 Submit
