@@ -8,9 +8,9 @@ const Card = ({ title, description, imageSrc }) => {
   // You should be able to implement the component with the elements imported above.
   // Feel free to import other UI components from Chakra UI if you wish to.
     return (
-        <VStack borderRadius="xl" boxSize="full" bg="white" padding="4"  cursor='pointer'  >
+        <VStack borderRadius="xl" boxSize="full" bg="white" padding="4"    >
             <Image  borderRadius="xl" src={imageSrc}/>
-            <VStack color="black" display="flex" alignItems="flex-start">
+            <VStack color="black" display="flex" alignItems="flex-start" cursor='pointer'>
                 <Heading>{title}</Heading>
                 <Text fontSize="sm" color="gray" noOfLines={2}>{description}</Text>
                 <a>See more <FontAwesomeIcon icon={faArrowRight} size="1x"/></a>
