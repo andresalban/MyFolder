@@ -61,7 +61,7 @@ const Header = () => {
           <nav>
             <HStack>
               {socials.map((social) =>
-                    <a key={social.url} href={social.url} >
+                    <a key={social.url} href={social.url} target="_blank" rel="noopener noreferrer" >
                       <FontAwesomeIcon icon={social.icon} size="2x"/>
                     </a>
 
